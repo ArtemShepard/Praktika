@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace VIN_LIB.dll
 {
     public class VIN_LIB
     {
-        public bool CheckVIN(string vin)
+        public int[] Weight = { 8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2 };
+        public List<int> Q = new List<int>();
+        Ecv ecv = new Ecv();
+        public bool CheckVIN(string vin)  
         {
             Regex regex = new Regex(@"[0-9|A-H|J-N|P|R-Z]{17}");
             if (!regex.IsMatch(vin))
@@ -17,7 +21,10 @@ namespace VIN_LIB.dll
             {
                 return false;
             }
-
+            foreach (char i in vin)
+            {
+                Q.Add(ecv.Vinecv[i]);
+            }
             return true;
         }
         public string GetVINCountry(string vin)
@@ -26,7 +33,7 @@ namespace VIN_LIB.dll
         }
         public int GetTransportYear (string vin)
         {
-
+            
         }
     }
 }
