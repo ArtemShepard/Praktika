@@ -7,9 +7,18 @@ namespace VIN_LIB.dll
     {
         public bool CheckVIN(string vin)
         {
-            string Vinstring;
-            string G;
             Regex regex = new Regex(@"[0-9|A-H|J-N|P|R-Z]{17}");
+            if (!regex.IsMatch(vin))
+            {
+                return false;
+            }
+            Regex controlsumm = new Regex(@"[0-9,X]");
+            if (!controlsumm.IsMatch(vin[8].ToString()))
+            {
+                return false;
+            }
+
+            return true;
         }
         public string GetVINCountry(string vin)
         {
