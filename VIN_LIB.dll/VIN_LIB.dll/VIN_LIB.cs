@@ -8,6 +8,7 @@ namespace VIN_LIB.dll
     {
         public int[] Weight = { 8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2 };
         public List<int> Q = new List<int>();
+        int W = 0;
         Ecv ecv = new Ecv();
         public bool CheckVIN(string vin)  
         {
@@ -24,6 +25,15 @@ namespace VIN_LIB.dll
             foreach (char i in vin)
             {
                 Q.Add(ecv.Vinecv[i]);
+            }
+            foreach (int i in Weight)
+            {
+                W = (Weight[i] * Q[i]) + W;
+            }
+            float X = W/11;
+            if(W - (X * 11)!= vin[8])
+            {
+                return false;
             }
             return true;
         }
